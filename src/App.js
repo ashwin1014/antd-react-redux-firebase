@@ -13,7 +13,7 @@ const App = () => {
       <div className="container">
         <Row type="flex" justify="center">
             <Col span={24}>
-              <Button type="primary">Click Me!</Button>
+              <Button type="primary" onClick={handleClick}>Click Me!</Button>
             </Col>
         </Row>        
       </div>
