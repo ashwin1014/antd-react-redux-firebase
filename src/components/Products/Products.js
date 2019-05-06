@@ -1,24 +1,27 @@
 import React, {Component} from 'react';
 import { Card, Row, Col } from 'antd';
-import axios from 'axios';
+import {connect} from 'react-redux';
+import { firestoreConnect } from 'react-redux-firebase';
+import { compose } from 'redux';
+// import axios from 'axios';
 
 const { Meta } = Card;
 
 
 class Products extends Component {
 
-    state = {
-        items: []
-    }
+    // state = {
+    //     items: []
+    // }
 
-    componentDidMount() {
-        axios.get('http://temp.dash.zeta.in/food.php')
-             .then(res=>{
-                this.setState({
-                    items: res.data.recipes
-                })
-             })
-    }
+    // componentDidMount() {
+    //     axios.get('http://temp.dash.zeta.in/food.php')
+    //          .then(res=>{
+    //             this.setState({
+    //                 items: res.data.recipes
+    //             })
+    //          })
+    // }
 
     generateKey = () => {
         return ((new Date().getTime())*Math.random()).toString(36).substr(0,8)
@@ -26,8 +29,10 @@ class Products extends Component {
 
   
     render() {
-        console.log(this.props.toFilter)
-        const foodItems = this.state.items.map(item=>{
+        // console.log(this.props.toFilter)
+         console.log('PROPS:',this.props)
+        // const { recipes } = this.props;
+        const foodItems = this.props.recipesItems.map(item=>{
             return (
                 <Col lg={{ span: 8}} sm={{ span: 12}} style={{ marginBottom: 30 }} key={this.generateKey()}>
                     <Card
@@ -54,4 +59,17 @@ class Products extends Component {
 }
 
 
-export default Products;
+const mapStateToProps = (state) => {
+   console.log(state.firestore.ordered.recipes)
+//  console.log(state)
+//    console.log(state.project.recipes)
+    return {
+       recipesItems: state.project.recipes
+    }
+}
+
+
+export default compose(
+    firestoreConnect(()=>['recipes']),
+    connect(mapStateToProps)
+)(Products);
