@@ -36,20 +36,20 @@ class AppLayout extends Component {
                 <span>All Items</span>
               </Menu.Item>
               <Menu.Item key="2" onClick={(e)=>this.filterItem("Starters")}>
-               <Icon type="video-camera" />
-               <span >Starters</span>
+               <Icon type="filter" />
+               <span>Starters</span>
               </Menu.Item>
               <Menu.Item key="3" onClick={(e)=>this.filterItem("Dessert")}>
-                <Icon type="upload" />
-                <span >Dessert</span>
+                <Icon type="filter" />
+                <span>Dessert</span>
               </Menu.Item>
               <Menu.Item key="4"  onClick={(e)=>this.filterItem("Drinks")}>
-                <Icon type="upload" />
+                <Icon type="filter" />
                 <span>Drinks</span>
               </Menu.Item>
-              <Menu.Item key="5" onClick={(e)=>this.filterItem("Ice creams")}>
-                <Icon type="upload" />
-                <span >Ice cream</span>
+              <Menu.Item key="5" onClick={(e)=>this.filterItem("Main course")}>
+                <Icon type="filter" />
+                <span>Main course</span>
               </Menu.Item>
            </Menu>
         </Sider>

@@ -1,0 +1,11 @@
+.ant-card-body {
+    padding: 24px;
+    height: 115px !important;
+}
+
+.ant-card-actions p {
+    cursor: default;
+    color: #333;
+    margin-top: 5px;
+    margin-bottom: 0px;
+}

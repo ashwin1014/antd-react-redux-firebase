@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import { Card, Row, Col } from 'antd';
+import { Card, Row, Col, Button  } from 'antd';
 import {connect} from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
+import './Products.css';
 // import axios from 'axios';
 
 const { Meta } = Card;
@@ -23,9 +24,9 @@ class Products extends Component {
     //          })
     // }
 
-    generateKey = () => {
-        return ((new Date().getTime())*Math.random()).toString(36).substr(0,8)
-    }
+    // generateKey = () => {
+    //     return ((new Date().getTime())*Math.random()).toString(36).substr(0,8)
+    // }
 
   
     render() {
@@ -33,26 +34,52 @@ class Products extends Component {
         // console.log('PROPS:',this.props.recipesItems.firestore.ordered.recipes)
          let foodItems = this.props.recipesItems.firestore.ordered.recipes;
          let foodItemsHtml;
-        // console.log('foodItems',foodItems)
+
+        if(this.props.toFilter === 'All') {
+            foodItemsHtml = foodItems && foodItems.map(ele=>{
+                return (
+                    <Col lg={{ span: 8}} sm={{ span: 12}} style={{ marginBottom: 30 }} key={ele.id}>
+                        <Card
+                            style={{ width: 300 }}
+                            cover={<img alt="food-item" src={ele.image} />}
+                            actions={[<p>&#8377; {ele.price}</p>,<Button>Add to cart</Button>]}
+                        >
+                        <Meta
+                            title={ele.name}
+                            description={ele.details}
+                        />
+                        </Card>
+                    </Col>            
+                )
+            })
+        } else {
+            let filtered = foodItems && foodItems.filter(ele=>{
+               return ele.category === this.props.toFilter
+            })
+           
+            foodItemsHtml = filtered.map(ele=>{
+                return (
+                    <Col lg={{ span: 8}} sm={{ span: 12}} style={{ marginBottom: 30 }} key={ele.id}>
+                        <Card
+                            style={{ width: 300 }}
+                            cover={<img alt="food-item" src={ele.image} />}
+                            actions={[<p>&#8377; {ele.price}</p>,<Button>Add to cart</Button>]}
+                        >
+                        <Meta
+                            title={ele.name}
+                            description={ele.details}
+                        />
+                        </Card>
+                    </Col>            
+                )
+            })
+            
+        }
     
-        foodItemsHtml = foodItems && foodItems.map(ele=>{
-            return (
-                <Col lg={{ span: 8}} sm={{ span: 12}} style={{ marginBottom: 30 }} key={ele.id}>
-                    <Card
-                        style={{ width: 300 }}
-                        cover={<img alt="food-item" src={ele.image} />}
-                    >
-                    <Meta
-                        title={ele.name}
-                        description={ele.details}
-                    />
-                    </Card>
-                </Col>            
-            )
-        })
+
         return(
            <>
-            <h1>All Items</h1>
+            <h1>{this.props.toFilter}</h1>
             <Row type="flex" justify="start">
                {foodItemsHtml}
             </Row>
