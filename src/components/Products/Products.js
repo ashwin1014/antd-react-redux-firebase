@@ -30,18 +30,21 @@ class Products extends Component {
   
     render() {
         // console.log(this.props.toFilter)
-         console.log('PROPS:',this.props)
-        // const { recipes } = this.props;
-        const foodItems = this.props.recipesItems.map(item=>{
+        // console.log('PROPS:',this.props.recipesItems.firestore.ordered.recipes)
+         let foodItems = this.props.recipesItems.firestore.ordered.recipes;
+         let foodItemsHtml;
+        // console.log('foodItems',foodItems)
+    
+        foodItemsHtml = foodItems && foodItems.map(ele=>{
             return (
-                <Col lg={{ span: 8}} sm={{ span: 12}} style={{ marginBottom: 30 }} key={this.generateKey()}>
+                <Col lg={{ span: 8}} sm={{ span: 12}} style={{ marginBottom: 30 }} key={ele.id}>
                     <Card
-                     style={{ width: 300 }}
-                     cover={<img alt="food-item" src={item.image} />}
+                        style={{ width: 300 }}
+                        cover={<img alt="food-item" src={ele.image} />}
                     >
                     <Meta
-                     title={item.name}
-                     description={item.details}
+                        title={ele.name}
+                        description={ele.details}
                     />
                     </Card>
                 </Col>            
@@ -51,7 +54,7 @@ class Products extends Component {
            <>
             <h1>All Items</h1>
             <Row type="flex" justify="start">
-               {foodItems}
+               {foodItemsHtml}
             </Row>
            </>
         )
@@ -60,11 +63,11 @@ class Products extends Component {
 
 
 const mapStateToProps = (state) => {
-   console.log(state.firestore.ordered.recipes)
+//  console.log(state.firestore.ordered.recipes)
 //  console.log(state)
-//    console.log(state.project.recipes)
+//  console.log(state.project.recipes)
     return {
-       recipesItems: state.project.recipes
+       recipesItems: state
     }
 }
 
