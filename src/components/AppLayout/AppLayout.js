@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
 import Products from '../Products/Products';
-import { Layout, Menu, Icon } from 'antd';
+import { Layout, Menu, Icon, Typography} from 'antd';
 
 const { Header, Sider, Content } = Layout;
+const { Title } = Typography;
 
 class AppLayout extends Component {
 
   state = {
     collapsed: true,
-    toFilter: 'All'
+    toFilter: 'All Items'
   };
 
 
@@ -31,7 +32,7 @@ class AppLayout extends Component {
         <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
            <div className="logo" />
            <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-              <Menu.Item key="1" onClick={(e)=>this.filterItem("All")}>
+              <Menu.Item key="1" onClick={(e)=>this.filterItem("All Items")}>
                 <Icon type="shopping-cart" />
                 <span>All Items</span>
               </Menu.Item>
@@ -61,6 +62,7 @@ class AppLayout extends Component {
               type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
               onClick={this.toggle}
             />
+            <Title>{this.state.toFilter}</Title>
           </Header>
           <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280, overflow: 'auto'}}>
               <Products toFilter={this.state.toFilter}/>

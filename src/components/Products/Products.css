@@ -9,3 +9,14 @@
     margin-top: 5px;
     margin-bottom: 0px;
 }
+
+.ant-menu-item {
+    text-align: left;
+}
+
+h1.ant-typography {
+    display: inline-block;
+    left: 45%;
+    position: relative;
+    top: 7px;
+}

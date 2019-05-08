@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Card, Row, Col, Button  } from 'antd';
+import { Card, Row, Col, Button } from 'antd';
 import {connect} from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
@@ -7,8 +7,6 @@ import './Products.css';
 // import axios from 'axios';
 
 const { Meta } = Card;
-
-
 class Products extends Component {
 
     // state = {
@@ -35,7 +33,7 @@ class Products extends Component {
          let foodItems = this.props.recipesItems.firestore.ordered.recipes;
          let foodItemsHtml;
 
-        if(this.props.toFilter === 'All') {
+        if(this.props.toFilter === 'All Items') {
             foodItemsHtml = foodItems && foodItems.map(ele=>{
                 return (
                     <Col lg={{ span: 8}} sm={{ span: 12}} style={{ marginBottom: 30 }} key={ele.id}>
@@ -78,12 +76,9 @@ class Products extends Component {
     
 
         return(
-           <>
-            <h1>{this.props.toFilter}</h1>
             <Row type="flex" justify="start">
                {foodItemsHtml}
             </Row>
-           </>
         )
     }
 }
