@@ -1,37 +1,45 @@
 import React, {Component} from 'react';
 import { Row, Col, Form, Input, Button, Typography } from 'antd';
+import { Redirect } from 'react-router-dom';
 
 const { Title } = Typography;
 
 class UserPhoneConfirm extends Component {
 
-    continue = e => {
+    state = {
+      fireRedirect: false
+    }
+
+    back = e => {
+      e.preventDefault();
+      this.props.prevStep()
+    }
+
+    handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
           if (!err) {
-            this.props.nextStep();
-            console.log('Received values of form: ', values);
+            console.log('Received values of form: ', values);     
+            this.setState({ fireRedirect: true })     
           }
         });
       }
 
-      back = e => {
-        e.preventDefault();
-        this.props.prevStep()
-      }
 
     render() {
         const { getFieldDecorator } = this.props.form;
+        const { fireRedirect } = this.state;
+
         return(
             <div className="container">
                 <Row>
                    <Col span={12} offset={6}>
                      <Title level={4}>Enter OTP sent to your number</Title>
-                     <Form onSubmit={this.continue}>
+                     <Form onSubmit={this.handleSubmit}>
                         <Form.Item>
-                                {getFieldDecorator('username', {
+                                {getFieldDecorator('otp', {
                                   validateTrigger: ["onChange"],
-                                  rules: [{ required: true, message: 'Please OTP sent on your phone!' }],
+                                  rules: [{ required: true, message: 'Enter OTP sent on your phone!' }],
                                  })(
                                  <Input placeholder="Enter OTP" />
                                 )}
@@ -41,6 +49,9 @@ class UserPhoneConfirm extends Component {
                          <Button type="primary" htmlType="submit">Confirm OTP</Button>
                       </Form.Item>
                      </Form>
+                     {fireRedirect && (
+                      <Redirect to='/Home' />
+                    )}
                    </Col>
                 </Row>
             </div>

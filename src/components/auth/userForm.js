@@ -42,13 +42,8 @@ class UserForm extends Component {
             
             case 2:
                return (
-                   <UserPhoneConfirm prevStep={this.prevStep} nextStep={this.nextStep} />
+                   <UserPhoneConfirm prevStep={this.prevStep} nextStep={this.nextStep}/>
                )
-
-            case 3:
-              return (
-                  <AppLayout/>
-              )
 
             default: return  <AppLayout/>
         }

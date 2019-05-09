@@ -23,6 +23,7 @@ class UserPhoneDetail extends Component {
     render() {
         const { value, handleChange } = this.props;
         const { getFieldDecorator } = this.props.form;
+        
         const prefixSelector = getFieldDecorator('prefix', {
             initialValue: '+91',
           })(
@@ -43,6 +44,7 @@ class UserPhoneDetail extends Component {
                             <Form.Item label="Enter Phone Number">
                                 {getFieldDecorator('phone', {
                                  validateTrigger: ["onChange"],
+                                //  initialValue: value,
                                  rules: [{ required: true, message: 'Please input your phone number!' }],
                                 })(
                                  <Input addonBefore={prefixSelector} 
