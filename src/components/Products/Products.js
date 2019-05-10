@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Card, Row, Col, Button } from 'antd';
+import { Card, Row, Col, Button, Icon } from 'antd';
 import {connect} from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
@@ -38,14 +38,20 @@ class Products extends Component {
                 return (
                     <Col lg={{ span: 8}} sm={{ span: 12}} style={{ marginBottom: 30 }} key={ele.id}>
                         <Card
+                            hoverable
                             style={{ width: 300 }}
                             cover={<img alt="food-item" src={ele.image} />}
                             actions={[<p>&#8377; {ele.price}</p>,<Button>Add to cart</Button>]}
                         >
                         <Meta
                             title={ele.name}
-                            description={ele.details}
+                           // description={ele.details}
                         />
+                         <div class="other-details">
+                          <p>&#8377; {ele.discount} Off</p>
+                          <p>&#8377; {ele.originalPrice}</p>
+                          <p>Rating: {ele.ratings} <Icon type="star" theme="filled" />({ele.reviews} Reviews)</p>
+                         </div>
                         </Card>
                     </Col>            
                 )
@@ -65,8 +71,13 @@ class Products extends Component {
                         >
                         <Meta
                             title={ele.name}
-                            description={ele.details}
+                            // description={ele.details}
                         />
+                        <div class="other-details">
+                         <p>&#8377; {ele.discount} Off</p>
+                         <p>&#8377; {ele.originalPrice}</p>
+                         <p>Rating: {ele.ratings} <Icon type="star" theme="filled" />({ele.reviews} Reviews)</p>
+                       </div>
                         </Card>
                     </Col>            
                 )

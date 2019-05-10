@@ -3,8 +3,7 @@ export const signIn = (credentials) => {
       const firebase = getFirebase();
       
       firebase.auth().signInWithEmailAndPassword(
-        credentials.email,
-        credentials.password
+        credentials.phoneNumber,        
       ).then(() => {
         dispatch({ type: 'LOGIN_SUCCESS' });
       }).catch((err) => {

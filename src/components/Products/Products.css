@@ -1,6 +1,6 @@
 .ant-card-body {
     padding: 24px;
-    height: 115px !important;
+    height: 130px !important;
 }
 
 .ant-card-actions p {
@@ -19,4 +19,28 @@ h1.ant-typography {
     left: 45%;
     position: relative;
     top: 7px;
+}
+
+.anticon-star {
+    color: green;
+}
+
+.ant-card-meta-title{
+    text-align: left;
+}
+
+.other-details{
+    text-align: left;
+    margin-top: 10px;
+}
+
+.other-details p:first-child{
+    display: inline;
+    font-weight: bold;
+    color: green;
+}
+
+.other-details p:nth-child(2) {
+    margin-bottom: 0px;
+    text-decoration: line-through;
 }

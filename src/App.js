@@ -9,7 +9,6 @@ const App = () => {
   return (
     <BrowserRouter>
     <div className="App">
-      {/* <AppLayout/> */} 
       <Switch>
         <Route exact path="/" component={UserForm}/>
         <Route path="/Home" component={AppLayout}/>
