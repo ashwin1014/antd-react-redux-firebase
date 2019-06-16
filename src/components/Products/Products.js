@@ -1,111 +1,50 @@
-import React, {Component} from 'react';
-import { Card, Row, Col, Button, Icon } from 'antd';
-import {connect} from 'react-redux';
-import { firestoreConnect } from 'react-redux-firebase';
-import { compose } from 'redux';
-import './Products.css';
-// import axios from 'axios';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { fetchItems } from '../../actions/productActions';
+import ProductItem from './ProductItem';
+import styles from './products.module.css';
+import { db } from '../../config/firebase';
+// import { getItemsFromFirebase } from '../../config/firebase.utils.manager';
 
-const { Meta } = Card;
+
 class Products extends Component {
 
-    // state = {
-    //     items: []
-    // }
 
-    // componentDidMount() {
-    //     axios.get('http://temp.dash.zeta.in/food.php')
-    //          .then(res=>{
-    //             this.setState({
-    //                 items: res.data.recipes
-    //             })
-    //          })
-    // }
-
-    // generateKey = () => {
-    //     return ((new Date().getTime())*Math.random()).toString(36).substr(0,8)
-    // }
-
-  
-    render() {
-        // console.log(this.props.toFilter)
-        // console.log('PROPS:',this.props.recipesItems.firestore.ordered.recipes)
-         let foodItems = this.props.recipesItems.firestore.ordered.recipes;
-         let foodItemsHtml;
-
-        if(this.props.toFilter === 'All Items') {
-            foodItemsHtml = foodItems && foodItems.map(ele=>{
-                return (
-                    <Col lg={{ span: 8}} sm={{ span: 12}} style={{ marginBottom: 30 }} key={ele.id}>
-                        <Card
-                            hoverable
-                            style={{ width: 300 }}
-                            cover={<img alt="food-item" src={ele.image} />}
-                            actions={[<p>&#8377; {ele.price}</p>,<Button>Add to cart</Button>]}
-                        >
-                        <Meta
-                            title={ele.name}
-                           // description={ele.details}
-                        />
-                         <div class="other-details">
-                          <p>&#8377; {ele.discount} Off</p>
-                          <p>&#8377; {ele.originalPrice}</p>
-                          <p>Rating: {ele.ratings} <Icon type="star" theme="filled" />({ele.reviews} Reviews)</p>
-                         </div>
-                        </Card>
-                    </Col>            
-                )
-            })
-        } else {
-            let filtered = foodItems && foodItems.filter(ele=>{
-               return ele.category === this.props.toFilter
-            })
-           
-            foodItemsHtml = filtered.map(ele=>{
-                return (
-                    <Col lg={{ span: 8}} sm={{ span: 12}} style={{ marginBottom: 30 }} key={ele.id}>
-                        <Card
-                            style={{ width: 300 }}
-                            cover={<img alt="food-item" src={ele.image} />}
-                            actions={[<p>&#8377; {ele.price}</p>,<Button>Add to cart</Button>]}
-                        >
-                        <Meta
-                            title={ele.name}
-                            // description={ele.details}
-                        />
-                        <div class="other-details">
-                         <p>&#8377; {ele.discount} Off</p>
-                         <p>&#8377; {ele.originalPrice}</p>
-                         <p>Rating: {ele.ratings} <Icon type="star" theme="filled" />({ele.reviews} Reviews)</p>
-                       </div>
-                        </Card>
-                    </Col>            
-                )
-            })
-            
-        }
+    componentDidMount() {
+        db.collection('recipes').onSnapshot(snapshot=>{
+            let items = [];
+            snapshot.docs.forEach(ele=>{
+                const itemDetails = ele.data();
+                const id = ele.id;
+                items.push({itemDetails, id});                
+            });
+            // console.log(items)
+            this.props.fetchItems(items);
+        });
+    }
     
 
-        return(
-            <Row type="flex" justify="start">
-               {foodItemsHtml}
-            </Row>
+    render() {
+        return (
+            <div className={styles.grid}>
+               {
+                   this.props.items && this.props.items.map(item=>{
+                       return (
+                         <ProductItem key={item.id} itemDetails={item.itemDetails} id={item.id}/>
+                       )
+                   })
+               }
+            </div>
         )
     }
-}
-
+};
 
 const mapStateToProps = (state) => {
-//  console.log(state.firestore.ordered.recipes)
-//  console.log(state)
-//  console.log(state.project.recipes)
+    const { items } = state;
+    // console.log(items)
     return {
-       recipesItems: state
+        items
     }
 }
 
-
-export default compose(
-    firestoreConnect(()=>['recipes']),
-    connect(mapStateToProps)
-)(Products);
+export default connect(mapStateToProps, { fetchItems })(Products)

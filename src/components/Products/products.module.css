@@ -1,0 +1,17 @@
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+    grid-gap: 60px;
+    align-items: start;
+}
+
+.other_details{
+    text-align: left;
+    margin-top: 10px;
+}
+
+.other_details p:first-child{
+    display: inline;
+    font-weight: bold;
+    /* color: green; */
+}

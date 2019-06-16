@@ -1,6 +1,6 @@
-import app from 'firebase/app';
-import 'firebase/firestore';
+import firebase from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/firestore';
 
 const firebaseConfig = {
     apiKey: "AIzaSyDfnpnjV3WThKBcMhYuBetHK8uNAxCdqgg",
@@ -10,9 +10,9 @@ const firebaseConfig = {
     storageBucket: "food-items-22615.appspot.com",
     messagingSenderId: "1098600604525",
     appId: "1:1098600604525:web:41e2732a0bc68bad"
-};
+  };
 
-app.initializeApp(firebaseConfig);
-app.firestore();
+export const firebaseApp = firebase.initializeApp(firebaseConfig);
 
-export default app;
+// export const recipes = firebase.database().ref('recipes');
+export const db = firebase.firestore(); 
