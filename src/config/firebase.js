@@ -15,4 +15,6 @@ const firebaseConfig = {
 export const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 // export const recipes = firebase.database().ref('recipes');
-export const db = firebase.firestore(); 
+export const db = firebase.firestore();
+
+export const mapKey = 'AIzaSyDvlVnWowOl4bH7teWI7vIe46U5LtXHhhM';

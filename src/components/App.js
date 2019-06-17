@@ -5,6 +5,7 @@ import Home from './Home/Home';
 import Admin from './Admin/Admin';
 import SignUp from './Auth/SignUp';
 import Cart from './cart/Cart';
+import Checkout from './Checkout/Checkout';
 import PageNotFound from './NotFound/PageNotFound';
 
  class App extends Component {
@@ -17,6 +18,7 @@ import PageNotFound from './NotFound/PageNotFound';
           <Route path="/adminpage" component={Admin} />
           <Route path="/signup" component={SignUp} />
           <Route path="/viewcart" component={Cart} />
+          <Route path="/Checkout" component={Checkout} />
           <Route component={PageNotFound} />
         </Switch>
       </BrowserRouter>

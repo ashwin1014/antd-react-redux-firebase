@@ -22,7 +22,13 @@ export const addToCart = (items, product) => (dispatch) => {
 };
 
 export const removeItemFromCart = (items, product) => (dispatch) => {
-    const cartItems = items.slice().items.filter(ele=>ele.id !== product.id);
+    let cartItems = items.slice();
+    cartItems.forEach(item => {
+        if(item.id === product.id) {
+          item.count--;
+          if(item.count === 0) cartItems = items.slice().filter(ele=>ele.id !== product.id);
+        }
+    });
     return dispatch({
         type: REMOVE_FROM_CART,
         payload: {
