@@ -2,11 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { addToCart, removeItemFromCart } from '../../actions/cartActions';
 import { Link } from 'react-router-dom';
-import { Row, Col, Button, Typography, Layout, Menu, Breadcrumb } from 'antd';
+import { Row, Col, Button, Typography, Layout } from 'antd';
 import styles from './cart.module.css';
 
 const { Title } = Typography;
-const { Header, Content } = Layout;
+const { Header } = Layout;
 
 
 const Cart = props => {
@@ -31,7 +31,7 @@ const Cart = props => {
                               <Col span={4}>
                               <img src={item.image} alt="cart-item" className="responsive-img"/>
                               </Col>
-                              <Col span={10}>
+                              <Col span={12}>
                               <div className={styles.itemsContainer}>
                                   Name: {item.name} <br/>
                                   Price: &#8377;{item.price * item.count} <br/>

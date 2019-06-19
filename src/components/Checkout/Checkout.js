@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import AddressForm from './AddressForm'
+import AddressForm from './AddressForm';
+import GetStoredAddress from './GetStoredAddress';
 // import styles from './checkout.module.css';
 import { Row, Col, Button, Typography, Layout,  Collapse   } from 'antd';
 
@@ -54,7 +55,7 @@ class Checkout extends React.Component {
            <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
            </Header>
         </Layout>
-            <div className="container"  style={{marginTop:64, height:'calc(100vh - 64px)', overflow:'auto', marginRight:0}}>
+            <div className="container"  style={{marginTop:80, height:'calc(100vh - 80px)'}}>
             {
                 this.props.cartItems.length>0 ? 
                 <Row>
@@ -64,6 +65,7 @@ class Checkout extends React.Component {
                     <AddressForm/>               
                 </Panel>
                 <Panel header="Select Stored Address" key="2">
+                  <GetStoredAddress/>
                 </Panel>
                 <Panel header="Payment Options" key="3">
                 </Panel>

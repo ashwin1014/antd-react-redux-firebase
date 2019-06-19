@@ -1,13 +1,25 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Menu } from 'antd';
 
 const CartItems = props => {
     return (
     <Menu>
-         <Menu.Item key="1">1st menu item</Menu.Item>
-         <Menu.Item key="2">1st menu item</Menu.Item>      
+         {
+             props.cartItems && props.cartItems.map((item, index) => {
+                 return (
+                      <Menu.Item key={index}>{item.name}</Menu.Item>
+                 )
+             })
+         }     
     </Menu>
     )
 };
 
-export default CartItems
+const mapStateToProps = state => {
+    return {
+     cartItems: state.cart.items
+    }
+  };
+
+  export default connect(mapStateToProps)(CartItems)

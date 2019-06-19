@@ -69,7 +69,9 @@ const Search = Input.Search;
           });
           this.props.fetchItems(items);    
         }) 
-      }
+      };
+
+      menu = <CartItems/>
 
           
     render() {
@@ -117,7 +119,7 @@ const Search = Input.Search;
                 <div className={styles.btn_container}>
                     <Button onClick={this.signout}>Signout</Button>
                     <Badge count={this.props.cartItems.length}>
-                     <Dropdown overlay={CartItems}>
+                     <Dropdown overlay={this.menu}>
                       <Link to='/viewcart' className="ant-dropdown-link">
                           <Button  type="primary" shape="circle" icon="shopping-cart" size="default" style={{marginLeft: 10}}/>
                       </Link> 
