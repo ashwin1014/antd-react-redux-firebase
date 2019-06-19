@@ -4,25 +4,26 @@ import { fetchItems } from '../../actions/productActions';
 import ProductItem from './ProductItem';
 import styles from './products.module.css';
 import { db } from '../../config/firebase';
+import _ from 'lodash';
+import { filter } from 'lodash';
 // import { getItemsFromFirebase } from '../../config/firebase.utils.manager';
 
 
 class Products extends Component {
 
-
     componentDidMount() {
-        db.collection('recipes').onSnapshot(snapshot=>{
+        db.collection('recipes').orderBy('name').onSnapshot(snapshot=>{
             let items = [];
             snapshot.docs.forEach(ele=>{
                 const itemDetails = ele.data();
                 const id = ele.id;
                 items.push({itemDetails, id});                
             });
-            // console.log(items)
-            this.props.fetchItems(items);
-        });
-    }
-    
+            this.props.fetchItems(items);     
+        }) 
+        console.log(this.props)
+    };
+
 
     render() {
         return (

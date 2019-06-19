@@ -1,19 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Layout, Menu, Icon, Button, Badge, Dropdown } from 'antd';
+import { Layout, Menu, Icon, Button, Badge, Dropdown, Input } from 'antd';
+import { fetchItems } from '../../actions/productActions';
 import {Link} from 'react-router-dom';
 import Products from '../Products/Products';
 import CartItems from '../cart/CartItems';
 import styles from './Home.module.css';
+import { db } from '../../config/firebase';
+
 
 
 const { Header, Sider, Content } = Layout;
+const Search = Input.Search;
 
  class Home extends Component {
 
     state = {
         collapsed: false,    
-        width: ''
+        width: '',
+        searchValue: '',
       };
     
       componentDidMount() {
@@ -51,7 +56,22 @@ const { Header, Sider, Content } = Layout;
         });
       };
 
-    
+      onItemSearch = (searchValue, coll) => {
+        console.log(searchValue)
+        db.collection('recipes').where(coll, '>=', `${searchValue.toString()}`)
+         .onSnapshot(snapshot=>{
+          let items = [];
+          snapshot.docs.forEach(ele=>{
+              const itemDetails = ele.data();
+              const id = ele.id;
+              items.push({itemDetails, id}); 
+              console.log(itemDetails)               
+          });
+          this.props.fetchItems(items);    
+        }) 
+      }
+
+          
     render() {
       // console.log(this.props.cartItems)
         return (
@@ -59,21 +79,25 @@ const { Header, Sider, Content } = Layout;
              <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
               <div className="logo" />
               <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-                <Menu.Item key="1">
+                <Menu.Item key="1" onClick={()=>this.onItemSearch('','category')}>
                   <Icon type="user" />
                   <span>All</span>
                 </Menu.Item>
-                <Menu.Item key="2">
+                <Menu.Item key="2" onClick={()=>this.onItemSearch('Starters', 'category')}>
                   <Icon type="video-camera" />
                   <span>Starters</span>
                 </Menu.Item>
-                <Menu.Item key="3">
+                <Menu.Item key="3" onClick={()=>this.onItemSearch('Dessert','category')}>
                   <Icon type="upload" />
                   <span>Dessert</span>
                 </Menu.Item>
-                <Menu.Item key="4">
+                <Menu.Item key="4" onClick={()=>this.onItemSearch('Drinks', 'category')}>
                   <Icon type="upload" />
                   <span>Drinks</span>
+                </Menu.Item>
+                <Menu.Item key="5" onClick={()=>this.onItemSearch('Main Course', 'category')}>
+                  <Icon type="upload" />
+                  <span>Main Course</span>
                 </Menu.Item>
               </Menu>
             </Sider>
@@ -85,6 +109,11 @@ const { Header, Sider, Content } = Layout;
                   onClick={this.toggle}
                   style={{padding: 20}}
                 />
+                   <Search
+                      placeholder="Search item"
+                      onSearch={value => this.onItemSearch(value,'name')}
+                      style={{ width: '50%' }}
+                    />
                 <div className={styles.btn_container}>
                     <Button onClick={this.signout}>Signout</Button>
                     <Badge count={this.props.cartItems.length}>
@@ -105,7 +134,7 @@ const { Header, Sider, Content } = Layout;
                   overflow: 'auto'
                 }}
               >
-                <Products/>
+                <Products searchvalue={this.searchValue}/>
               </Content>
             </Layout>
           </Layout>
@@ -115,10 +144,12 @@ const { Header, Sider, Content } = Layout;
 
 const mapStateToProps = state => {
   // console.log(state.cart.items.length)
+  const { items } = state;
  return {
-  cartItems: state.cart.items
+    cartItems: state.cart.items,
+    items
  }
 };
 
-export default connect(mapStateToProps)(Home)
+export default connect(mapStateToProps, {fetchItems})(Home)
 
