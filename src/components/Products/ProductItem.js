@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { Card, Icon, Button, Col, Tooltip, Typography, notification } from 'antd';
 import styles from './products.module.css';
 import { connect } from 'react-redux';
@@ -24,7 +24,8 @@ const ProductItem = props => {
           image,
           originalPrice,
           ratings,
-          reviews
+          reviews,
+          discount
         };
 
        let args;

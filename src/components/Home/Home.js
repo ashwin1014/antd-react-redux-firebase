@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { firebaseApp } from '../../config/firebase';
 import { Layout, Menu, Icon, Button, Badge, Dropdown, Input } from 'antd';
 import { fetchItems } from '../../actions/productActions';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Products from '../Products/Products';
 import CartItems from '../cart/CartItems';
 import styles from './Home.module.css';
 import { db } from '../../config/firebase';
-
-
 
 const { Header, Sider, Content } = Layout;
 const Search = Input.Search;
@@ -46,8 +45,7 @@ const Search = Input.Search;
       };
 
       signout = () => {
-       // firebaseApp.auth().signOut();
-       alert('Signout')
+        firebaseApp.auth().signOut();
       };
     
       toggle = () => {

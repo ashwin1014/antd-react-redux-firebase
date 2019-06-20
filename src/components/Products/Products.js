@@ -4,8 +4,8 @@ import { fetchItems } from '../../actions/productActions';
 import ProductItem from './ProductItem';
 import styles from './products.module.css';
 import { db } from '../../config/firebase';
-import _ from 'lodash';
-import { filter } from 'lodash';
+// import _ from 'lodash';
+// import { filter } from 'lodash';
 // import { getItemsFromFirebase } from '../../config/firebase.utils.manager';
 
 
@@ -21,7 +21,6 @@ class Products extends Component {
             });
             this.props.fetchItems(items);     
         }) 
-        console.log(this.props)
     };
 
 
@@ -42,7 +41,6 @@ class Products extends Component {
 
 const mapStateToProps = (state) => {
     const { items } = state;
-    // console.log(items)
     return {
         items
     }

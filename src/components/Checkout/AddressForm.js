@@ -1,8 +1,8 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import {  Button, Input, Form, Icon, Typography,  Radio, Select, Checkbox  } from 'antd';
+import {  Button, Input, Form,  Radio, Select  } from 'antd';
 
-const { Title } = Typography; 
+// const { Title } = Typography; 
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 const { Option } = Select;

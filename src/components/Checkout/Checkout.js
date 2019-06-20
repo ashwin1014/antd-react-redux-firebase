@@ -12,7 +12,7 @@ import { Row, Col, Button, Typography, Layout,  Collapse   } from 'antd';
 // import { mapKey } from '../../config/firebase';
 
 const { Title } = Typography;
-const { Header, Content } = Layout;
+const { Header } = Layout;
 const Panel = Collapse.Panel;
 
 // Geocode.setApiKey(mapKey);

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import {  Button, Input, Form, Icon, Typography  } from 'antd';
 import styles from './auth.module.css';
@@ -32,31 +33,36 @@ const required = val => {
 
 
 const SignUp = ({handleSubmit, valid}) => (
-    <div className="container" style={{marginTop: 50}}>          
+    <div className="container center" style={{marginTop: 50}}>          
+     <div className="container">
      <Form onSubmit={handleSubmit} className={styles.form}>        
-        <Title level={4} className="center">Sign Up</Title>  
-          <Field
-            prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-            name="email"
-            type="email"
-            placeholder="email"
-            validate={required}
-            component={renderInput}
-          />
-          <Field
-              prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              name="password"
-              type="password"              
-              placeholder="Password"
-              validate={required}
-              component={renderInput}
-          />
-        <Form.Item>
-          <Button type="primary" htmlType="submit" className="login-form-button" disabled={!valid}>
-            Log in
-          </Button>
-        </Form.Item>
-     </Form>
+     <Title level={4} className="center">Sign Up</Title>  
+       <Field
+         prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+         name="email"
+         type="email"
+         placeholder="email"
+         validate={required}
+         component={renderInput}
+       />
+       <Field
+           prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+           name="password"
+           type="password"              
+           placeholder="Password"
+           validate={required}
+           component={renderInput}
+       />
+     <Form.Item>
+       <Button type="primary" htmlType="submit" className="login-form-button" disabled={!valid}>
+         Log in
+       </Button>
+     </Form.Item>
+  </Form>
+  <Link to='/' className="container">
+     <Button  type="link">Already registered? Log In</Button>
+  </Link> 
+     </div>
   </div>
 )
 
