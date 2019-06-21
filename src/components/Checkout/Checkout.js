@@ -62,7 +62,7 @@ class Checkout extends React.Component {
                 <Col span={12} style={{boxShadow: '0 0 5px rgba(0,0,0,0.35)', top:10}}>                  
                 <Collapse accordion>
                 <Panel header="Add Address" key="1">    
-                    <AddressForm/>               
+                  <AddressForm/>               
                 </Panel>
                 <Panel header="Select Stored Address" key="2">
                   <GetStoredAddress/>

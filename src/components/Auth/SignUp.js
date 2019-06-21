@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { firebaseApp } from '../../config/firebase';
 import { Field, reduxForm } from 'redux-form';
 import {  Button, Input, Form, Icon, Typography  } from 'antd';
 import styles from './auth.module.css';
@@ -19,9 +20,15 @@ const renderInput = ({input, prefix, type, placeholder, meta}) => {
   )
 }
 
-const onSubmit = values => {
-  let userDetails = JSON.stringify(values);
-  console.log(userDetails);
+const onSubmit = async values => {
+  // let userDetails = JSON.stringify(values);
+  // console.log(userDetails);
+  const {email, password} = values;
+  try {
+    await firebaseApp.createUserWithEmailAndPassword(email, password);
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 const required = val => {

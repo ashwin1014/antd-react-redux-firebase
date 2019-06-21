@@ -61,3 +61,11 @@ img.responsive-img, video.responsive-video {
   .right {
     float: right !important;
   }
+
+  .ant-spin {
+    position: absolute !important;
+    display: flex !important;
+    margin: auto !important;
+    left: 50%;
+    top: 50%;
+  }

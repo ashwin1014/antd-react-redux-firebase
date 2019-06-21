@@ -4,6 +4,7 @@ import { firebaseApp } from '../../config/firebase';
 import { Layout, Menu, Icon, Button, Badge, Dropdown, Input } from 'antd';
 import { fetchItems } from '../../actions/productActions';
 import { Link } from 'react-router-dom';
+import { push } from "connected-react-router";
 import Products from '../Products/Products';
 import CartItems from '../cart/CartItems';
 import styles from './Home.module.css';
@@ -45,7 +46,9 @@ const Search = Input.Search;
       };
 
       signout = () => {
-        firebaseApp.auth().signOut();
+        firebaseApp.auth().signOut().then(()=>{
+            this.props.history.push('/')
+        });
       };
     
       toggle = () => {
@@ -151,5 +154,5 @@ const mapStateToProps = state => {
  }
 };
 
-export default connect(mapStateToProps, {fetchItems})(Home)
+export default connect(mapStateToProps, {fetchItems, push})(Home)
 

@@ -3,6 +3,7 @@ import { connectRouter } from 'connected-react-router'
 import { reducer as reduxFormReducer } from 'redux-form';
 import items from './itemsReducer';
 import cart from './cartReducer';
+import user from './authReducer';
 
 // const rootReducer = combineReducers({
 //     form: reduxFormReducer, // mounted under "form"
@@ -14,6 +15,7 @@ export default (history) => combineReducers({
     router: connectRouter(history),
     form: reduxFormReducer, // mounted under "form"
     items,
-    cart
+    cart,
+    user
 })
   
