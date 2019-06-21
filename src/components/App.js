@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, withRouter } from "react-router-dom";
+import { Route, Switch, withRouter, Redirect } from "react-router-dom";
 import { firebaseApp } from '../config/firebase';
 import { connect } from 'react-redux';
 import { push } from "connected-react-router";
@@ -19,7 +19,7 @@ import  ProtectedRoute  from './Auth/protected.route';
 
   state = {
     signedInUser: [],
-    loading: true
+    loading: true,
   }
 
   
@@ -41,7 +41,6 @@ import  ProtectedRoute  from './Auth/protected.route';
           signedInUser: this.props.user.signedInUser,
           loading: false
         })   
-        // console.log('state',this.state.signedInUser.isAuthenticated)
       } else {
         console.log('User signed out');
         const signedInUser = {
@@ -89,4 +88,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default withRouter(connect(mapStateToProps, {push, logUser, pure: false})(App));
+export default withRouter(connect(mapStateToProps, {push, logUser})(App));

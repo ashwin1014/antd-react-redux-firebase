@@ -24,11 +24,10 @@ const onSubmit = async values => {
   // let userDetails = JSON.stringify(values);
   // console.log(userDetails);
   const {email, password} = values;
-  try {
-    await firebaseApp.createUserWithEmailAndPassword(email, password);
-  } catch (e) {
-    console.error(e);
-  }
+  firebaseApp.auth().createUserWithEmailAndPassword(email, password)
+              .catch(err=> {
+                  this.setState({error: err})
+              });
 }
 
 const required = val => {
